@@ -4,4 +4,24 @@
 
 this is the main page
 
+<form method="/POST" action="/toDoListItems">
+	<input type="text" name="toDoListItem[content]">
+	<input type="checkbox" name="toDoListItems[isDone]">
+</form>
+<ul>
+	<li>To Do List</li>
+	<% for (var i = 0; i < user.toDoListItems.length; i++) { -%>
+			<% 
+			if (user.toDoListItems[i].isDone) {
+				var isDone = "Done";
+			} else {
+				var isDone = "Not Done"
+			}
+			 %>
+		
+		<li><%=user.toDoListItems[i].content%> - <%= isDone %></li>
+	<% } -%>
+	
+</ul>
+
 <%- include('partials/footer') -%>
