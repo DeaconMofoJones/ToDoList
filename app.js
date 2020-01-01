@@ -79,7 +79,7 @@ app.get("/", isLoggedIn ,function(req,res){
 //create the toDoListItem based on data passed along from the new item form
 //associate the newly created item with the user who created it
 app.post("/toDoListItems", isLoggedIn, function(req,res){
-	toDoListItem.create(req.body.toDoListItem, function(err,createdItem){
+	ToDoListItem.create(req.body.toDoListItem, function(err,createdItem){
 		if (err) {
 			console.log(err);
 			res.send(err);
@@ -88,7 +88,7 @@ app.post("/toDoListItems", isLoggedIn, function(req,res){
 			User.findOne({username:req.user.username}, function(err, foundUser){
 				if (err) {
 					console.log(err);
-					res.render(err);
+					res.send(err);
 				} else {
 					foundUser.toDoListItems.push(createdItem);
 					foundUser.save(function(err, data){
@@ -96,7 +96,7 @@ app.post("/toDoListItems", isLoggedIn, function(req,res){
 							console.log(err);
 							res.send(err);
 						} else {
-							res.redirect("/toDoListItems", {user:foundUser});
+							res.redirect("/", {user:foundUser});
 						}
 					})
 				}
